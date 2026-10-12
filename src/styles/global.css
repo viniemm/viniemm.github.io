@@ -5,8 +5,8 @@
   --line: #11111126;
   --grid: #1111110d;
   --accent: #2b59ff;
-  --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
-  --sans: var(--mono);
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --gutter: clamp(16px, 4vw, 40px);
   color-scheme: light dark;
 }
@@ -40,7 +40,7 @@ body {
     linear-gradient(90deg, var(--grid) 1px, transparent 1px);
   background-size: 24px 24px;
   color: var(--ink);
-  font: 15px/1.65 var(--sans);
+  font: 16px/1.6 var(--sans);
 }
 
 a {
