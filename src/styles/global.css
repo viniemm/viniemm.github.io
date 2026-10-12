@@ -108,7 +108,8 @@ a:hover {
 
 .bar nav {
   display: flex;
-  gap: 18px;
+  flex-wrap: wrap;
+  gap: 4px 18px;
 }
 
 .bar nav a {
@@ -355,6 +356,88 @@ a:hover {
   letter-spacing: 0.04em;
 }
 
+/* ---------- experience / education ---------- */
+
+.timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 168px 1fr;
+  gap: 24px;
+  padding: 22px 0;
+  border-top: 1px dashed var(--line);
+}
+
+.entry:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.when {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 3px;
+  color: var(--ink-2);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.entry h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.where {
+  margin: 2px 0 0;
+  font: 13px/1.5 var(--mono);
+}
+
+.points {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.points li {
+  position: relative;
+  margin: 0 0 8px;
+  padding-left: 20px;
+  color: var(--ink-2);
+  font-size: 15px;
+}
+
+.points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.8em;
+  width: 10px;
+  border-top: 1px solid var(--accent);
+}
+
+.detail {
+  margin: 8px 0 0;
+  color: var(--ink-2);
+  font-size: 15px;
+}
+
+/* ---------- skills ---------- */
+
+.spec.skills div {
+  grid-template-columns: 132px 1fr;
+}
+
+.spec.skills dd {
+  padding: 10px 12px;
+}
+
 /* ---------- contact ---------- */
 
 .contact {
@@ -420,6 +503,10 @@ a:hover {
   .section { padding: 40px 18px 32px; }
   .hero { padding-top: 52px; }
   .about { grid-template-columns: 1fr; gap: 24px; }
+  .entry { grid-template-columns: 1fr; gap: 8px; }
+  .when { flex-direction: row; flex-wrap: wrap; gap: 4px 12px; }
+  .spec.skills div { grid-template-columns: 1fr; }
+  .spec.skills dt { border-right: 0; padding-bottom: 0; }
   .note, .crop { display: none; }
   .bar { padding: 10px 14px; }
 }
