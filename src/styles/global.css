@@ -5,7 +5,7 @@
   --line: #11111126;
   --grid: #1111110d;
   --accent: #2b59ff;
-  --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
   --sans: var(--mono);
   --gutter: clamp(16px, 4vw, 40px);
   color-scheme: light dark;
@@ -170,8 +170,10 @@ a:hover {
 }
 
 .hero h1 .outline {
-  color: transparent;
-  -webkit-text-stroke: 1px var(--ink);
+  /* fill painted over a doubled stroke hides overlapping glyph contours */
+  color: var(--paper);
+  -webkit-text-stroke: 2px var(--ink);
+  paint-order: stroke fill;
 }
 
 .dim {
