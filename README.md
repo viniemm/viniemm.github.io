@@ -13,7 +13,7 @@ Push to `main` and the `Deploy to GitHub Pages` workflow rebuilds and publishes 
 ## Local
 
 ```sh
-npm install
-npm run dev      # http://localhost:4321
-npm run build    # outputs to dist/
+pnpm install
+pnpm dev       # http://localhost:4321
+pnpm build     # outputs to dist/
 ```
