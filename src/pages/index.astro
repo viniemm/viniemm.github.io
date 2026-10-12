@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import { profile } from '../data/profile';
+import { profile, experience, education, skills } from '../data/profile';
 
 const projects = (await getCollection('projects')).sort(
   (a, b) => a.data.order - b.data.order,
@@ -27,6 +27,7 @@ const rev = new Date().toISOString().slice(0, 10);
         <span>{profile.handle}.com · sheet 01/01</span>
         <nav aria-label="Sections">
           <a href="#about">About</a>
+          <a href="#experience">Experience</a>
           <a href="#work">Work</a>
           <a href="#contact">Contact</a>
         </nav>
@@ -38,8 +39,8 @@ const rev = new Date().toISOString().slice(0, 10);
         <h1 id="name">{first}<br /><span class="outline">{rest.join(' ')}</span></h1>
         <div class="dim" aria-hidden="true">{profile.title.toLowerCase()}</div>
         <p class="lede">
-          Software engineer, <em>now building in finance</em>. Studying financial
-          technology in New York.
+          Software engineer, <em>now building in finance</em>. Studying quantitative
+          finance in New York.
         </p>
       </section>
 
@@ -53,15 +54,60 @@ const rev = new Date().toISOString().slice(0, 10);
           <dl class="spec">
             <div><dt>Role</dt><dd>Software Engineer</dd></div>
             <div><dt>Exp.</dt><dd>3+ years in tech</dd></div>
-            <div><dt>Study</dt><dd>{profile.education.degree}</dd></div>
-            <div><dt>School</dt><dd>{profile.education.school}</dd></div>
+            <div><dt>Study</dt><dd>MS Quantitative Finance</dd></div>
+            <div><dt>School</dt><dd>Baruch College, Zicklin</dd></div>
             <div><dt>Based</dt><dd>{profile.location}</dd></div>
           </dl>
         </div>
       </section>
 
+      <section class="section" id="experience" aria-labelledby="exp-h">
+        <span class="tag" id="exp-h">[02] Experience</span>
+        <span class="note">n = {pad(experience.length)}</span>
+        <ol class="timeline">
+          {
+            experience.map((job) => (
+              <li class="entry">
+                <div class="when mono">
+                  <span>{job.dates}</span>
+                  <span>{job.place}</span>
+                </div>
+                <div>
+                  <h3>{job.role}</h3>
+                  <p class="where">{job.company}</p>
+                  <ul class="points">
+                    {job.points.map((pt) => <li>{pt}</li>)}
+                  </ul>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <section class="section" id="education" aria-labelledby="edu-h">
+        <span class="tag" id="edu-h">[03] Education</span>
+        <ol class="timeline">
+          {
+            education.map((ed) => (
+              <li class="entry">
+                <div class="when mono">
+                  <span>{ed.dates}</span>
+                  <span>{ed.place}</span>
+                </div>
+                <div>
+                  <h3>{ed.degree}</h3>
+                  <p class="where">{ed.school}</p>
+                  <p class="detail">{ed.detail}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
       <section class="section" id="work" aria-labelledby="work-h">
-        <span class="tag" id="work-h">[02] Selected work</span>
+        <span class="tag" id="work-h">[04] Selected work</span>
         <span class="note">n = {pad(projects.length)}</span>
         <ul class="projects">
           {
@@ -92,8 +138,26 @@ const rev = new Date().toISOString().slice(0, 10);
         </ul>
       </section>
 
+      <section class="section" id="skills" aria-labelledby="skills-h">
+        <span class="tag" id="skills-h">[05] Toolkit</span>
+        <dl class="spec skills">
+          {
+            skills.map((s) => (
+              <div>
+                <dt>{s.group}</dt>
+                <dd>
+                  <ul class="chips">
+                    {s.items.map((t) => <li>{t}</li>)}
+                  </ul>
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </section>
+
       <section class="section" id="contact" aria-labelledby="contact-h">
-        <span class="tag" id="contact-h">[03] Contact</span>
+        <span class="tag" id="contact-h">[06] Contact</span>
         <ul class="contact">
           {profile.links.map((l) => <li><a href={l.href}>{l.label} ↗</a></li>)}
         </ul>
