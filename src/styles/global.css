@@ -482,15 +482,153 @@ a:hover {
   letter-spacing: 0.06em;
 }
 
-/* ---------- draw-in ---------- */
+/* ---------- line draw ---------- */
 
+/* Registered so the four stroke lengths of a box can be animated. */
+@property --t { syntax: '<percentage>'; inherits: false; initial-value: 100%; }
+@property --r { syntax: '<percentage>'; inherits: false; initial-value: 100%; }
+@property --b { syntax: '<percentage>'; inherits: false; initial-value: 100%; }
+@property --l { syntax: '<percentage>'; inherits: false; initial-value: 100%; }
+
+/* Everything below only applies when the script has set .js on <html> and the
+   visitor allows motion; otherwise the plain borders above are the final look.
+   [data-draw] elements get .in as they scroll into view. */
 @media (prefers-reduced-motion: no-preference) {
-  .frame {
-    animation: draw 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  /* frame and cards: the border becomes four strokes drawn around the box */
+  .js .frame,
+  .js .card {
+    border-color: transparent;
+    background-origin: border-box;
+    background-repeat: no-repeat;
+    background-image:
+      linear-gradient(var(--ink), var(--ink)),
+      linear-gradient(var(--ink), var(--ink)),
+      linear-gradient(var(--ink), var(--ink)),
+      linear-gradient(var(--ink), var(--ink));
+    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+    background-size: var(--t) 1px, 1px var(--r), var(--b) 1px, 1px var(--l);
   }
-  @keyframes draw {
-    from { clip-path: inset(0 100% 100% 0); }
-    to { clip-path: inset(0 0 0 0); }
+
+  /* the tall frame draws both sides downward together so the motion stays on screen */
+  .js .frame {
+    background-position: 0 0, 100% 0, 100% 100%, 0 0;
+  }
+
+  .js [data-draw]:not(.in) {
+    --t: 0%;
+    --r: 0%;
+    --b: 0%;
+    --l: 0%;
+  }
+
+  .js .frame.in {
+    animation: draw-frame 1.4s cubic-bezier(0.45, 0, 0.2, 1) both;
+  }
+
+  .js .card.in {
+    animation: draw-box 0.9s cubic-bezier(0.45, 0, 0.2, 1) both;
+  }
+
+  /* dividers: each section draws the rule above it, left to right */
+  .js .bar,
+  .js .section {
+    border-bottom-color: transparent;
+  }
+
+  .js .section::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--ink);
+    transform-origin: left;
+  }
+
+  .js .section:not(.in)::before {
+    transform: scaleX(0);
+  }
+
+  .js .section.in::before {
+    animation: draw-x 0.7s cubic-bezier(0.45, 0, 0.2, 1) 0.15s both;
+  }
+
+  /* hero dimension line grows outward from the label */
+  .js .hero:not(.in) .dim::before,
+  .js .hero:not(.in) .dim::after {
+    transform: scaleX(0);
+  }
+
+  .js .hero.in .dim::before {
+    transform-origin: right;
+    animation: draw-x 0.8s ease-out 0.6s both;
+  }
+
+  .js .hero.in .dim::after {
+    transform-origin: left;
+    animation: draw-x 0.8s ease-out 0.6s both;
+  }
+
+  /* project cards: image-frame rule and the X are drawn after the box */
+  .js .placeholder {
+    border-bottom-color: transparent;
+    overflow: visible; /* so the rule can sit in the border row, as the static one does */
+  }
+
+  .js .placeholder::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: var(--ink);
+    transform-origin: left;
+  }
+
+  .js .card:not(.in) .placeholder::after {
+    transform: scaleX(0);
+  }
+
+  .js .card.in .placeholder::after {
+    animation: draw-x 0.5s ease-out 0.6s both;
+  }
+
+  /* dash length is in screen px because the lines use non-scaling-stroke */
+  .js .placeholder line {
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+  }
+
+  .js .card.in .placeholder line {
+    animation: draw-stroke 0.8s ease-out 0.7s both;
+  }
+
+  @keyframes draw-x {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  @keyframes draw-stroke {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* clockwise: top, right, bottom, left */
+  @keyframes draw-box {
+    0% { --t: 0%; --r: 0%; --b: 0%; --l: 0%; }
+    25% { --t: 100%; --r: 0%; --b: 0%; --l: 0%; }
+    50% { --t: 100%; --r: 100%; --b: 0%; --l: 0%; }
+    75% { --t: 100%; --r: 100%; --b: 100%; --l: 0%; }
+    100% { --t: 100%; --r: 100%; --b: 100%; --l: 100%; }
+  }
+
+  /* top runs across first, sides run down together, bottom closes last */
+  @keyframes draw-frame {
+    0% { --t: 0%; --r: 0%; --b: 0%; --l: 0%; }
+    30% { --t: 100%; }
+    70% { --b: 0%; }
+    100% { --t: 100%; --r: 100%; --b: 100%; --l: 100%; }
   }
 }
 

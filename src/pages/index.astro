@@ -22,7 +22,7 @@ const rev = new Date().toISOString().slice(0, 10);
     <span class="crop bl" aria-hidden="true"></span>
     <span class="crop br" aria-hidden="true"></span>
 
-    <main class="frame">
+    <main class="frame" data-draw>
       <header class="bar">
         <span>{profile.handle}.com · sheet 01/01</span>
         <nav aria-label="Sections">
@@ -33,7 +33,7 @@ const rev = new Date().toISOString().slice(0, 10);
         </nav>
       </header>
 
-      <section class="section hero" aria-labelledby="name">
+      <section class="section hero" data-draw aria-labelledby="name">
         <span class="tag">[00] Index</span>
         <span class="note">{profile.location} · 40.71°N 74.00°W</span>
         <h1 id="name">{first}<br /><span class="outline">{rest.join(' ')}</span></h1>
@@ -44,7 +44,7 @@ const rev = new Date().toISOString().slice(0, 10);
         </p>
       </section>
 
-      <section class="section" id="about" aria-labelledby="about-h">
+      <section class="section" data-draw id="about" aria-labelledby="about-h">
         <span class="tag" id="about-h">[01] About</span>
         <span class="note">scale 1:1</span>
         <div class="about">
@@ -61,7 +61,7 @@ const rev = new Date().toISOString().slice(0, 10);
         </div>
       </section>
 
-      <section class="section" id="experience" aria-labelledby="exp-h">
+      <section class="section" data-draw id="experience" aria-labelledby="exp-h">
         <span class="tag" id="exp-h">[02] Experience</span>
         <span class="note">n = {pad(experience.length)}</span>
         <ol class="timeline">
@@ -85,7 +85,7 @@ const rev = new Date().toISOString().slice(0, 10);
         </ol>
       </section>
 
-      <section class="section" id="education" aria-labelledby="edu-h">
+      <section class="section" data-draw id="education" aria-labelledby="edu-h">
         <span class="tag" id="edu-h">[03] Education</span>
         <ol class="timeline">
           {
@@ -106,13 +106,13 @@ const rev = new Date().toISOString().slice(0, 10);
         </ol>
       </section>
 
-      <section class="section" id="work" aria-labelledby="work-h">
+      <section class="section" data-draw id="work" aria-labelledby="work-h">
         <span class="tag" id="work-h">[04] Selected work</span>
         <span class="note">n = {pad(projects.length)}</span>
         <ul class="projects">
           {
             projects.map((p, i) => (
-              <li class="card">
+              <li class="card" data-draw>
                 <div class="placeholder" aria-hidden="true">
                   <svg viewBox="0 0 160 90" preserveAspectRatio="none">
                     <line x1="0" y1="0" x2="160" y2="90" vector-effect="non-scaling-stroke" />
@@ -138,7 +138,7 @@ const rev = new Date().toISOString().slice(0, 10);
         </ul>
       </section>
 
-      <section class="section" id="skills" aria-labelledby="skills-h">
+      <section class="section" data-draw id="skills" aria-labelledby="skills-h">
         <span class="tag" id="skills-h">[05] Toolkit</span>
         <dl class="spec skills">
           {
@@ -156,7 +156,7 @@ const rev = new Date().toISOString().slice(0, 10);
         </dl>
       </section>
 
-      <section class="section" id="contact" aria-labelledby="contact-h">
+      <section class="section" data-draw id="contact" aria-labelledby="contact-h">
         <span class="tag" id="contact-h">[06] Contact</span>
         <ul class="contact">
           {profile.links.map((l) => <li><a href={l.href}>{l.label} ↗</a></li>)}
