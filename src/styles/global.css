@@ -461,6 +461,10 @@ a:hover {
   letter-spacing: 0.06em;
 }
 
+.hero-links {
+  margin-top: 24px;
+}
+
 .contact a:hover {
   border-color: var(--accent);
   box-shadow: 3px 3px 0 var(--accent);

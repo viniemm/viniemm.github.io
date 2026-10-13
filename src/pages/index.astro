@@ -42,6 +42,9 @@ const rev = new Date().toISOString().slice(0, 10);
           Software engineer, <em>now building in finance</em>. Studying quantitative
           finance in New York.
         </p>
+        <ul class="contact hero-links">
+          {profile.links.map((l) => <li><a href={l.href}>{l.label} ↗</a></li>)}
+        </ul>
       </section>
 
       <section class="section" data-draw id="about" aria-labelledby="about-h">
